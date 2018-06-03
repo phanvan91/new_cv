@@ -2554,7 +2554,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(36);
-module.exports = __webpack_require__(108);
+module.exports = __webpack_require__(109);
 
 
 /***/ }),
@@ -21901,7 +21901,7 @@ var _Contact = __webpack_require__(86);
 
 var _Contact2 = _interopRequireDefault(_Contact);
 
-var _Footer = __webpack_require__(107);
+var _Footer = __webpack_require__(108);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
@@ -26645,6 +26645,10 @@ var _axios = __webpack_require__(87);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _classnames = __webpack_require__(107);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26664,28 +26668,65 @@ var Contact = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
         _this.onChange = function (e) {
-            _this.setState(_defineProperty({}, e.target.name, e.target.value));
+            if (!!_this.state.errors[e.target.name]) {
+                var _this$setState;
+
+                var errors = Object.assign({}, _this.state.errors);
+                delete errors[e.target.name];
+                _this.setState((_this$setState = {}, _defineProperty(_this$setState, e.target.name, e.target.value), _defineProperty(_this$setState, 'errors', errors), _this$setState));
+            } else {
+                _this.setState(_defineProperty({}, e.target.name, e.target.value));
+            }
         };
 
         _this.onSubmit = function (e) {
             e.preventDefault();
-            _axios2.default.post('/send-mail', {
-                name: _this.state.name,
-                email: _this.state.email,
-                subject: _this.state.subject,
-                message: _this.state.message
-            }).then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
-                console.log(error);
+            // validation
+            _this.setState({
+                loading: true
             });
+            var errors = {};
+            if (_this.state.name === '') errors.name = "Can't be empty";
+            if (_this.state.email === '') errors.email = "Can't be empty";
+            if (_this.state.subject === '') errors.subject = "Can't be empty";
+            if (_this.state.message === '') errors.message = "Can't be empty";
+            _this.setState({
+                errors: errors
+            });
+
+            var isValid = Object.keys(errors).length === 0;
+
+            if (isValid) {
+
+                _axios2.default.post('/send-mail', {
+                    name: _this.state.name,
+                    email: _this.state.email,
+                    subject: _this.state.subject,
+                    message: _this.state.message
+                }).then(function (response) {
+                    this.setState({
+                        loading: false,
+                        noty: true
+                    });
+                    setTimeout(function () {
+                        this.setState({ noty: false });
+                    }.bind(this), 4000);
+                }.bind(_this));
+            } else {
+                _this.setState({
+                    loading: false
+                });
+            }
         };
 
         _this.state = {
             name: '',
             email: '',
             subject: '',
-            message: ''
+            message: '',
+            errors: {},
+            noty: false,
+            loading: false
         };
         return _this;
     }
@@ -26697,7 +26738,8 @@ var Contact = function (_Component) {
                 name = _state.name,
                 email = _state.email,
                 subject = _state.subject,
-                message = _state.message;
+                message = _state.message,
+                loading = _state.loading;
 
             return _react2.default.createElement(
                 'section',
@@ -26718,6 +26760,11 @@ var Contact = function (_Component) {
                                     'h2',
                                     null,
                                     'Contact Me'
+                                ),
+                                this.state.noty && _react2.default.createElement(
+                                    'div',
+                                    { className: 'alert alert-primary', role: 'alert' },
+                                    'You have successfully sent the message'
                                 )
                             ),
                             _react2.default.createElement(
@@ -26728,18 +26775,22 @@ var Contact = function (_Component) {
                                     { className: 'row' },
                                     _react2.default.createElement(
                                         'div',
-                                        { className: 'col-md-6' },
+                                        { className: (0, _classnames2.default)('col-md-6', { error: !!this.state.errors.name }) },
                                         _react2.default.createElement('input', { type: 'text', placeholder: 'Name', value: name, name: 'name', onChange: this.onChange })
                                     ),
                                     _react2.default.createElement(
                                         'div',
-                                        { className: 'col-md-6' },
+                                        { className: (0, _classnames2.default)('col-md-6', { error: !!this.state.errors.email }) },
                                         _react2.default.createElement('input', { type: 'text', placeholder: 'E-mail', value: email, name: 'email', onChange: this.onChange })
                                     ),
                                     _react2.default.createElement(
                                         'div',
-                                        { className: 'col-md-12' },
-                                        _react2.default.createElement('input', { type: 'text', placeholder: 'Subject', value: subject, name: 'subject', onChange: this.onChange }),
+                                        { className: (0, _classnames2.default)('col-md-12', { error: !!this.state.errors.subject }) },
+                                        _react2.default.createElement('input', { type: 'text', placeholder: 'Subject', value: subject, name: 'subject', onChange: this.onChange })
+                                    ),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: (0, _classnames2.default)('col-md-12', { error: !!this.state.errors.message }) },
                                         _react2.default.createElement('textarea', { placeholder: 'Message', value: message, name: 'message', onChange: this.onChange })
                                     )
                                 ),
@@ -26748,7 +26799,8 @@ var Contact = function (_Component) {
                                     { className: 'text-md-right' },
                                     _react2.default.createElement(
                                         'button',
-                                        { className: 'site-btn' },
+                                        { type: 'submit', className: 'site-btn' },
+                                        loading && _react2.default.createElement('i', { className: 'fa fa-spinner fa-spin' }),
                                         'Send message'
                                     )
                                 )
@@ -27847,6 +27899,61 @@ module.exports = function spread(callback) {
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -27909,7 +28016,7 @@ var Footer = function (_Component) {
 exports.default = Footer;
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

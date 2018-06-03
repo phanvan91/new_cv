@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('CV/css/owl.carousel.css')}}"/>
     <link rel="stylesheet" href="{{asset('CV/css/magnific-popup.css')}}"/>
     <link rel="stylesheet" href="{{asset('CV/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{asset('style.css')}}"/>
+
     <title>CV Nguyễn Văn Phan </title>
 
 
