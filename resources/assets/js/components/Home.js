@@ -31,9 +31,9 @@ export default class  extends Component {
                 <Education/>
 
 
-                <Reference/>
+                {/*<Reference/>*/}
 
-                <Portfolio/>
+                {/*<Portfolio/>*/}
 
                 <ExtraSkill/>
 

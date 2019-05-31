@@ -21,8 +21,8 @@ class ExtraSkill extends Component {
                                                     <h2>80%</h2>
                                                 </div>
                                                 <div className="prog-title">
-                                                    <h3>Laravel</h3>
-                                                    <p>Etiam nec odio vestibulum est.</p>
+                                                    <h3>PHP</h3>
+                                                    <p>PHP Laravel</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -34,11 +34,11 @@ class ExtraSkill extends Component {
                                             <div className="circle-progress">
                                                 <div id="progress2" className="prog-circle" />
                                                 <div className="progress-info">
-                                                    <h2>55%</h2>
+                                                    <h2>80%</h2>
                                                 </div>
                                                 <div className="prog-title">
-                                                    <h3>React Js</h3>
-                                                    <p>Etiam nec odio vestibulum est.</p>
+                                                    <h3>Javasript</h3>
+                                                    <p>Jquery, React js</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,7 +49,7 @@ class ExtraSkill extends Component {
                                     <div className="fact-box">
                                         <div className="fact-content">
                                             <img src="CV/img/icon/1-w.png" alt={1} />
-                                            <h2>1</h2>
+                                            <h2>2</h2>
                                             <p>Years of Experience</p>
                                         </div>
                                     </div>

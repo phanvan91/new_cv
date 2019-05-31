@@ -15,7 +15,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/Home'
+import Home from './cv-v2/Home'
 import { BrowserRouter } from 'react-router-dom'
 
 if (document.getElementById('root')) {
