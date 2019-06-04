@@ -17,7 +17,7 @@ class Profile extends React.Component{
                                     Web Developer
                                 </p>
                                 <a className="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a>
-                                {/*<a className="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>*/}
+                                <a className="btn btn-primary" href="/download/Nguyen-Van-Phan-TopCV.vn-040619.152421.pdf" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
                             </div>
                         </div>
                         <div className="section">

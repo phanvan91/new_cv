@@ -165,12 +165,12 @@ class Contact extends React.Component{
                                             <div className="col-md-6">
                                                 <div className="card-body">
                                                     <p className="mb-0"><strong>Address </strong></p>
-                                                    <p className="pb-2">140, City Center, New York,
+                                                    <p className="pb-2">123, Pham Huy Thong , Da nang,
                                                         U.S.A</p>
                                                     <p className="mb-0"><strong>Phone</strong></p>
-                                                    <p className="pb-2">+1718-111-0011</p>
+                                                    <p className="pb-2">+84 905 722 808</p>
                                                     <p className="mb-0"><strong>Email</strong></p>
-                                                    <p>anthony@company.com</p>
+                                                    <p>phanvan91@gmail.com</p>
                                                 </div>
                                             </div>
                                         </div>

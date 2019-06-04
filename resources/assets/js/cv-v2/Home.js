@@ -11,7 +11,7 @@ class Home extends React.Component {
             <Fragment>
                 <Header/>
                 <Content/>
-                <Footer/>
+                {/*<Footer/>*/}
             </Fragment>
         )
     }

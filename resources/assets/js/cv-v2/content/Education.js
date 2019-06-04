@@ -12,8 +12,8 @@ class Education extends React.Component{
                             <div className="col-md-12 bg-primary" data-aos="fade-right" data-aos-offset="50"
                                  data-aos-duration="500">
                                 <div className="card-body cc-education-header">
-                                    <p>2013 - 2015</p>
-                                    <div className="h5">Master's Degree</div>
+                                    <p>2016 - 2017</p>
+                                    <div className="h5">Iviettech</div>
                                 </div>
                             </div>
                             {/*<div className="col-md-9" data-aos="fade-left" data-aos-offset="50"*/}
